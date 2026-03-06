@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            padding: 30px;
+        }
+        h1 {
+            color: #E50914;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #E50914;
+            margin-top: 40px;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        th {
+            background-color: #E50914;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            color: #cccccc;
+        }
+        tr:hover td {
+            background-color: #2a2a2a;
+            color: white;
+        }
+        /* filter buttons */
+        .filter-bar {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .filter-bar a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #333;
+            color: white;
+        }
+        .filter-bar a:hover {
+            background-color: #E50914;
+        }
+        .filter-bar a.active {
+            background-color: #E50914;
+        }
+        .badge {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎬 Netflix Data Dashboard</h1>
+
+    <!-- Filter Buttons -->
+    <div class="filter-bar">
+        <a href="/?type=All"
+           class="{{ 'active' if filter_type == 'All' else '' }}">
+           All
+        </a>
+        <a href="/?type=Movie"
+           class="{{ 'active' if filter_type == 'Movie' else '' }}">
+           🎥 Movies Only
+        </a>
+        <a href="/?type=TV Show"
+           class="{{ 'active' if filter_type == 'TV Show' else '' }}">
+           📺 TV Shows Only
+        </a>
+    </div>
+
+    <!-- Current Filter Badge -->
+    <div class="badge">
+        Showing: <strong>{{ filter_type }}</strong>
+    </div>
+
+    <!-- Table 1 — Top 10 Directors -->
+    <h2>🎥 Top 10 Directors</h2>
+    <table>
+        <tr>
+            <th>Director</th>
+            <th>Number of Titles</th>
+        </tr>
+        {% for director, count in top_directors.items() %}
+        <tr>
+            <td>{{ director }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Table 2 — Top 10 Countries -->
+    <h2>🌍 Top 10 Countries</h2>
+    <table>
+        <tr>
+            <th>Country</th>
+            <th>Number of Titles</th>
+        </tr>
+        {% for country, count in top_countries.items() %}
+        <tr>
+            <td>{{ country }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Table 3 — Movies vs TV Shows -->
+    <h2>🎞️ Movies vs TV Shows</h2>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Count</th>
+        </tr>
+        {% for type, count in type_count.items() %}
+        <tr>
+            <td>{{ type }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Table 4 — Titles Added Per Year -->
+    <h2>📅 Titles Added Per Year</h2>
+    <table>
+        <tr>
+            <th>Year</th>
+            <th>Number of Titles</th>
+        </tr>
+        {% for year, count in top_years.items() %}
+        <tr>
+            <td>{{ year }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
